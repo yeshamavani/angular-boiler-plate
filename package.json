@@ -2,13 +2,30 @@
   "name": "angular-boiler-plate",
   "version": "0.0.0",
   "scripts": {
+    "config": "ts-node ./scripts/setenv.ts",
+    "postinstall": "npm run prepare",
+    "prepare": "husky install",
     "ng": "ng",
-    "start": "ng serve",
-    "build": "ng build",
+    "start": "npm run config && node --max-old-space-size=8192 node_modules/@angular/cli/bin/ng serve",
+    "build": "node --max-old-space-size=8192 node_modules/@angular/cli/bin/ng build",
+    "docker:build": "docker build -t oasis-frontend:latest .",
+    "pretest": "npm run lint",
+    "test": "ng test --no-watch",
+    "test:debug": "npm run lint && ng test",
+    "prelint": "npm run build",
+    "lint": "ng lint && npm run prettier:check",
     "watch": "ng build --watch --configuration development",
-    "test": "ng test"
+    "prettier:cli": "prettier \"**/*.ts\" \"**/*.js\" \"**/*.html\"",
+    "prettier:check": "npm run prettier:cli -- --check",
+    "prettier:fix": "npm run prettier:cli -- --write",
+    "release": "standard-version",
+    "preanalyze": "npm run build -- --stats-json --configuration=prodstats",
+    "analyze": "webpack-bundle-analyzer dist/biz-book-ui/stats.json",
+    "compress": "gzipper compress ./dist --gzip --gzip-level 9 --include js,html,css,ttf,woff,woff2,eot",
+    "compress:instrument": "gzipper compress ./instrumented --gzip --gzip-level 9 --include js,html,css,ttf,woff,woff2,eot",
+    "instrument": "NODE_OPTIONS=--max-old-space-size=16384 npx nyc instrument ./dist ./instrumented --delete --complete-copy --exclude-after-remap=false"
   },
-  "private": true,
+  "private": false,
   "dependencies": {
     "@angular/animations": "^15.0.0",
     "@angular/common": "^15.0.0",
@@ -26,7 +43,13 @@
     "@angular-devkit/build-angular": "^15.0.4",
     "@angular/cli": "~15.0.4",
     "@angular/compiler-cli": "^15.0.0",
+    "@schematics/angular": "^15.0.4",
     "@types/jasmine": "~4.3.0",
+    "commitizen": "^4.2.6",
+    "cz-conventional-changelog": "^3.3.0",
+    "cz-customizable": "^7.0.0",
+    "cz-customizable-ghooks": "^2.0.0",
+    "husky": "^8.0.2",
     "jasmine-core": "~4.5.0",
     "karma": "~6.4.0",
     "karma-chrome-launcher": "~3.1.0",
@@ -34,5 +57,17 @@
     "karma-jasmine": "~5.1.0",
     "karma-jasmine-html-reporter": "~2.0.0",
     "typescript": "~4.8.2"
+  },
+  "husky": {
+    "hooks": {
+      "pre-commit": "npm run lint",
+      "prepare-commit-msg": "exec < /dev/tty && git cz --hook || true",
+      "commit-msg": "commitlint -E HUSKY_GIT_PARAMS"
+    }
+  },
+  "config": {
+    "commitizen": {
+      "path": "./node_modules/cz-customizable"
+    }
   }
 }
