@@ -23,7 +23,7 @@
             "error",
             {
               "type": "attribute",
-              "prefix": "bizbook",
+              "prefix": "boiler",
               "style": "camelCase"
             }
           ],
@@ -31,7 +31,7 @@
             "error",
             {
               "type": "element",
-              "prefix": "bizbook",
+              "prefix": "boiler",
               "style": "kebab-case"
             }
           ]
