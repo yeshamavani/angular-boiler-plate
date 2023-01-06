@@ -12,6 +12,7 @@
     "pretest": "npm run lint",
     "test": "ng test --no-watch",
     "test:debug": "npm run lint && ng test",
+    "prelint": "npm run build",
     "lint": "ng lint && npm run prettier:check",
     "watch": "ng build --watch --configuration development",
     "prettier:cli": "prettier \"**/*.ts\" \"**/*.js\" \"**/*.html\"",
@@ -52,12 +53,12 @@
     "zone.js": "~0.12.0"
   },
   "devDependencies": {
-    "@angular-devkit/build-angular": "^14.0.4",
-    "@angular-eslint/builder": "^14.1.0",
-    "@angular-eslint/eslint-plugin": "^14.1.0",
-    "@angular-eslint/eslint-plugin-template": "^14.1.0",
-    "@angular-eslint/schematics": "^14.1.0",
-    "@angular-eslint/template-parser": "^14.1.0",
+    "@angular-devkit/build-angular": "^14.2.10",
+    "@angular-eslint/builder": "^14.4.0",
+    "@angular-eslint/eslint-plugin": "^14.4.0",
+    "@angular-eslint/eslint-plugin-template": "^14.4.0",
+    "@angular-eslint/schematics": "^14.4.0",
+    "@angular-eslint/template-parser": "^14.4.0",
     "@angular/cli": "~14.2.10",
     "@angular/compiler-cli": "^14.0.0",
     "@commitlint/cli": "^17.3.0",
@@ -66,14 +67,14 @@
     "@types/jasmine": "~4.3.0",
     "@types/lodash": "^4.14.191",
     "@types/node": "^18.11.17",
-    "@typescript-eslint/eslint-plugin": "^5.47.0",
-    "@typescript-eslint/parser": "^5.47.0",
+    "@typescript-eslint/eslint-plugin": "^5.43.0",
+    "@typescript-eslint/parser": "^5.43.0",
     "commitizen": "^4.2.6",
     "cz-conventional-changelog": "^3.3.0",
     "cz-customizable": "^7.0.0",
     "cz-customizable-ghooks": "^2.0.0",
     "dotenv": "^16.0.3",
-    "eslint": "^8.30.0",
+    "eslint": "^8.28.0",
     "http-server": "^14.1.1",
     "husky": "^8.0.2",
     "jasmine-core": "~4.5.0",
@@ -89,6 +90,7 @@
   },
   "husky": {
     "hooks": {
+      "pre-commit": "npm run lint",
       "prepare-commit-msg": "exec < /dev/tty && git cz --hook || true",
       "commit-msg": "commitlint -E HUSKY_GIT_PARAMS"
     }

@@ -1,6 +1,7 @@
 import {TestBed} from '@angular/core/testing';
 import {RouterTestingModule} from '@angular/router/testing';
-import {CoreModule, StoreModule} from '../..';
+import {CoreModule} from '@boiler/core/core.module';
+import {StoreModule} from '@boiler/core/store';
 
 import {LoggedInGuard} from './logged-in.guard';
 

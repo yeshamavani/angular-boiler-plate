@@ -1,17 +1,17 @@
 import {NameId} from '../..';
 
 export class LoggedInUserDM {
-  id: string;
+  id!: string;
   firstName = '';
   middleName?: string;
   lastName?: string;
-  username: string;
+  username!: string;
   email?: string;
   phone?: string;
-  permissions: string[];
-  tenant: NameId;
+  permissions!: string[];
+  tenant!: NameId;
   lastLogin?: Date;
-  defaultTenantId: string;
+  defaultTenantId!: string;
   photo?: string;
   userTenantId?: string;
   role?: string;

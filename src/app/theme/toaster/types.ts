@@ -5,5 +5,5 @@ import {
 import {ToasterConfig} from '../../core/toaster/types';
 
 export class ToasterConfigExt extends ToasterConfig {
-  override position: NbGlobalLogicalPosition | NbGlobalPhysicalPosition;
+  override position!: NbGlobalLogicalPosition | NbGlobalPhysicalPosition;
 }

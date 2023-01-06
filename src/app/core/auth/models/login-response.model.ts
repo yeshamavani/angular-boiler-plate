@@ -1,3 +1,3 @@
 export class LoginResponseModel {
-  code: string;
+  code!: string;
 }

@@ -1,13 +1,16 @@
-fetch(`assets/json/environment.json?t=${new Date().getTime()}`, {'pragma': 'no-cache', 'cache-control': 'no-cache'})
+fetch(`assets/json/environment.json?t=${new Date().getTime()}`, {
+  pragma: 'no-cache',
+  'cache-control': 'no-cache',
+})
   .then(res => res.json())
   .then(cfg => {
     if (cfg.cspApiUrl) {
       const config = {
         'script-src': `'self' 'unsafe-eval'`,
         'connect-src': `'self' ${cfg.cspApiUrl.split(',').join(' ')}`,
-        'worker-src': `'self'`
+        'worker-src': `'self'`,
       };
-      
+
       let meta = document.createElement('meta');
       meta.httpEquiv = 'Content-Security-Policy';
       meta.content = `

@@ -1,4 +1,4 @@
 export class TokenResponseModel {
-  accessToken: string;
-  refreshToken: string;
+  accessToken!: string;
+  refreshToken!: string;
 }

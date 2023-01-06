@@ -3,6 +3,7 @@ import {HttpClientModule} from '@angular/common/http';
 import {NgModule} from '@angular/core';
 import {FormsModule} from '@angular/forms';
 import {RouterModule} from '@angular/router';
+import {AuthService} from '@boiler/core/auth';
 import {NbAuthModule, NbPasswordAuthStrategy} from '@nebular/auth';
 import {NbLayoutModule, NbThemeModule} from '@nebular/theme';
 import {TranslateModule} from '@ngx-translate/core';

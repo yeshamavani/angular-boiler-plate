@@ -10,32 +10,32 @@ export class ToasterConfig {
   /**
    * Determines where on the screen toast have to be rendered.
    * */
-  position: string | ToasterPhysicalPosition;
+  position!: string | ToasterPhysicalPosition;
   /**
    * Status chooses color scheme for the toast.
    * */
-  status: string;
+  status!: string;
   /**
    * Duration is timeout between toast appears and disappears.
    * */
-  timeout: number;
+  timeout!: number;
   /**
    * If preventDuplicates is true
    * then the toast with the same title, message and status will not be rendered.
    * */
-  preventDuplicates: boolean;
+  preventDuplicates!: boolean;
   /**
    * CSS Class to be applied to the toast.
    */
-  toastClass: string;
+  toastClass!: string;
   /**
    * Determines render icon or not.
    * */
-  hasIcon: boolean;
+  hasIcon!: boolean;
   /**
    * Icon name that can be provided to render custom icon.
    * */
-  icon: string;
+  icon!: string;
 }
 
 export enum ToasterPhysicalPosition {
