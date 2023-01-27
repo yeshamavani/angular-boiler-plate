@@ -11,7 +11,7 @@ describe('ToasterService', () => {
 
   beforeEach(() => {
     TestBed.configureTestingModule({
-      imports: [ThemeModule.forRoot('arc'), CoreModule],
+      imports: [ThemeModule.forRoot('boiler'), CoreModule],
       providers: [
         ToasterAdapterService,
         {

@@ -6,7 +6,7 @@ export class LoginCommand<T> extends PostAPICommand<T> {
     super(
       apiService,
       adapter,
-      `${environment.baseApiUrl}/${environment.authServiceUrl}/auth/login`,
+      `${environment.baseApiUrl}${environment.authServiceUrl}/auth/login`,
     );
   }
 }

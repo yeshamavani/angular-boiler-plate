@@ -2,7 +2,7 @@ import {HttpErrorResponse, HttpHeaders} from '@angular/common/http';
 import {Injectable} from '@angular/core';
 import {Router} from '@angular/router';
 import {AnyAdapter, ApiService} from '@boiler/core/api';
-import {AuthTokenSkipHeader} from '@boiler/core/constants';
+import {AuthTokenSkipHeader, ErrToastSkipHeader} from '@boiler/core/constants';
 import {UserSessionStoreService} from '@boiler/core/store';
 import {environment} from '@boiler/env/environment';
 import {NgxPermissionsService} from 'ngx-permissions';
@@ -17,6 +17,7 @@ import {
   tap,
   throwError,
 } from 'rxjs';
+
 import {LoggedInUserAdapterService, LoginAdapterService} from './adapters';
 import {CoreAuthModule} from './auth.module';
 import {
@@ -35,7 +36,14 @@ import {LoggedInUserDM, LoginModel} from './models';
   providedIn: CoreAuthModule,
 })
 export class AuthService {
-  private readonly authHeaders = new HttpHeaders().set(AuthTokenSkipHeader, '');
+  private readonly authTokenSkipHeader = new HttpHeaders().set(
+    AuthTokenSkipHeader,
+    '',
+  );
+  private readonly errorToastSkipHeader = new HttpHeaders().set(
+    ErrToastSkipHeader,
+    '',
+  );
   constructor(
     private readonly router: Router,
     private readonly store: UserSessionStoreService,
@@ -50,14 +58,8 @@ export class AuthService {
     return this.currentUser().pipe(
       switchMap(user => {
         if (user && user.id && this.store.getAccessToken()) {
-          console.log('inside logiinin if');
           return of(true);
         } else {
-          console.log(
-            'inside logiinin else',
-            user,
-            this.store.getAccessToken(),
-          );
           return of(false);
         }
       }),
@@ -97,7 +99,7 @@ export class AuthService {
         client_secret: environment.publicKey,
       },
       observe: 'response',
-      headers: this.authHeaders,
+      headers: this.authTokenSkipHeader,
     };
     return command.execute();
   }
@@ -113,7 +115,7 @@ export class AuthService {
         client_id: environment.clientId,
       },
       observe: 'response',
-      headers: this.authHeaders,
+      headers: this.authTokenSkipHeader,
     };
     return command.execute();
   }
@@ -133,7 +135,7 @@ export class AuthService {
         client_secret: environment.publicKey,
       },
       observe: 'response',
-      headers: this.authHeaders,
+      headers: this.authTokenSkipHeader,
     };
     return command.execute();
   }
@@ -156,7 +158,7 @@ export class AuthService {
         clientSecret: environment.publicKey,
       },
       observe: 'response',
-      headers: this.authHeaders,
+      headers: this.authTokenSkipHeader,
     };
     return command.execute();
   }
@@ -164,7 +166,7 @@ export class AuthService {
   loginViaGoogle(): void {
     const form = document.createElement('form');
     form.method = 'POST';
-    form.action = `${environment.baseApiUrl}/${environment.authServiceUrl}/auth/google`;
+    form.action = `${environment.baseApiUrl}${environment.authServiceUrl}/auth/google`;
     form.style.display = 'none';
 
     const clientId = document.createElement('input');
@@ -183,8 +185,7 @@ export class AuthService {
   }
 
   public authorize(secret: string): Observable<boolean> {
-    const user = this.store.getUser();
-    if (!user.username) {
+    if (!secret) {
       this.router.navigate(['auth/login']);
     }
     // sonarignore:start
@@ -195,19 +196,20 @@ export class AuthService {
     // sonarignore:end
     command.parameters = {
       data: {
-        username: user.username.toLowerCase(),
         clientId: environment.clientId,
         code: secret,
       },
-      headers: this.authHeaders,
+      headers: this.authTokenSkipHeader,
     };
     return command.execute().pipe(
       map(response => {
+        const redirectTo =
+          this.store.getLastAccessedUrl() ?? environment.homePath;
         if (response.accessToken && response.refreshToken) {
           this.store.saveAccessToken(response.accessToken);
           this.store.saveRefreshToken(response.refreshToken);
           this.store.saveTokenExpiry(response.expires);
-          this.router.navigate([environment.homePath]);
+          this.router.navigate([redirectTo]);
           return true;
         }
         return false;
@@ -232,6 +234,7 @@ export class AuthService {
       data: {
         refreshToken,
       },
+      headers: this.errorToastSkipHeader,
     };
     return command
       .execute()
@@ -261,7 +264,7 @@ export class AuthService {
       this.clearAllData();
       return of(false);
     }
-    const command: LogoutCommand<any> = new LogoutCommand(
+    const command: LogoutCommand<unknown> = new LogoutCommand(
       this.apiService,
       this.anyAdapter,
     );
@@ -269,6 +272,7 @@ export class AuthService {
       data: {
         refreshToken,
       },
+      headers: this.errorToastSkipHeader,
     };
     return command.execute().pipe(
       map(() => {

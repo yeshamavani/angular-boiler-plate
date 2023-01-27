@@ -6,7 +6,7 @@ export class ForgetPasswordCommand<T> extends PostAPICommand<T> {
     super(
       apiService,
       adapter,
-      `${environment.baseApiUrl}/${environment.authServiceUrl}/auth/forget-password`,
+      `${environment.baseApiUrl}${environment.authServiceUrl}/auth/forget-password`,
     );
   }
 }

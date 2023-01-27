@@ -6,7 +6,7 @@ export class GoogleLoginCommand<T> extends GetAPICommand<T> {
     super(
       apiService,
       adapter,
-      `${environment.baseApiUrl}/${environment.authServiceUrl}/auth/google`,
+      `${environment.baseApiUrl}${environment.authServiceUrl}/auth/google`,
     );
   }
 }

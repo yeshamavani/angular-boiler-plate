@@ -6,7 +6,7 @@ export class GetCurrentUserCommand<T> extends GetAPICommand<T> {
     super(
       apiService,
       adapter,
-      `${environment.baseApiUrl}/${environment.authServiceUrl}/auth/me`,
+      `${environment.baseApiUrl}${environment.authServiceUrl}/auth/me`,
     );
   }
 }

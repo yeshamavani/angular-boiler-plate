@@ -12,7 +12,7 @@ describe('ErrorInterceptor', () => {
         RouterTestingModule,
         HttpClientTestingModule,
         CoreModule,
-        ThemeModule.forRoot('arc'),
+        ThemeModule.forRoot('boiler'),
       ],
       providers: [ErrorInterceptor],
     }),

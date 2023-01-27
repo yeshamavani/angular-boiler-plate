@@ -6,7 +6,7 @@ export class ResetPasswordCommand<T> extends PatchAPICommand<T> {
     super(
       apiService,
       adapter,
-      `${environment.baseApiUrl}/${environment.authServiceUrl}/auth/reset-password`,
+      `${environment.baseApiUrl}${environment.authServiceUrl}/auth/reset-password`,
     );
   }
 }

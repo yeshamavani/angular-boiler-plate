@@ -6,3 +6,4 @@ export * from './error-code';
 export * from './i-api-service';
 export * from './models';
 export * from './types';
+export * from './backend-filter';

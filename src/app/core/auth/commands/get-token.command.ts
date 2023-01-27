@@ -6,7 +6,7 @@ export class GetTokenCommand<T> extends PostAPICommand<T> {
     super(
       apiService,
       adapter,
-      `${environment.baseApiUrl}/${environment.authServiceUrl}/auth/token`,
+      `${environment.baseApiUrl}${environment.authServiceUrl}/auth/token`,
     );
   }
 }

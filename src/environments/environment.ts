@@ -7,8 +7,8 @@ export const environment = {
   clientId: '',
   publicKey: '',
   homePath: '/main/home',
-  baseApiUrl: 'hello',
-  authServiceUrl: 'authservice',
+  baseApiUrl: '',
+  authServiceUrl: '',
   userServiceUrl: '',
   logLevel: 5,
 };

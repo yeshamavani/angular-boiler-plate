@@ -24,7 +24,6 @@ export class LoggedInGuard implements CanActivate {
         tap(res => {
           if (res) {
             const timeout = setTimeout(() => {
-              console.log('in side guard', res);
               this.router.navigate([environment.homePath]);
               clearTimeout(timeout);
             });

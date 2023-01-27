@@ -6,7 +6,7 @@ export class LogoutCommand<T> extends PostAPICommand<T> {
     super(
       apiService,
       adapter,
-      `${environment.baseApiUrl}/${environment.authServiceUrl}/auth/logout`,
+      `${environment.baseApiUrl}${environment.authServiceUrl}/logout`,
     );
   }
 }

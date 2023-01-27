@@ -6,7 +6,7 @@ export class VerifyResetPasswordLinkCommand<T> extends PostAPICommand<T> {
     super(
       apiService,
       adapter,
-      `${environment.baseApiUrl}/${environment.authServiceUrl}/auth/verify-reset-password-link`,
+      `${environment.baseApiUrl}${environment.authServiceUrl}/auth/verify-reset-password-link`,
     );
   }
 }

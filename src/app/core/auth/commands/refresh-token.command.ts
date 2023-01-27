@@ -6,7 +6,7 @@ export class RefreshTokenCommand<T> extends PostAPICommand<T> {
     super(
       apiService,
       adapter,
-      `${environment.baseApiUrl}/${environment.authServiceUrl}/auth/token-refresh`,
+      `${environment.baseApiUrl}${environment.authServiceUrl}/auth/token-refresh`,
     );
   }
 }

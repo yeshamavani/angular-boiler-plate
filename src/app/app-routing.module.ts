@@ -1,7 +1,7 @@
 import {NgModule} from '@angular/core';
 import {RouterModule, Routes} from '@angular/router';
 import {environment} from '@boiler/env/environment';
-import {LoggedInGuard} from './core/auth/guards';
+import {AuthGuard, LoggedInGuard} from './core/auth';
 import {EnvResolverService} from './core/services';
 
 const routes: Routes = [
@@ -12,6 +12,14 @@ const routes: Routes = [
     },
     loadChildren: () => import('./auth/auth.module').then(m => m.AuthModule),
     canActivate: [LoggedInGuard],
+  },
+  {
+    path: 'main',
+    resolve: {
+      env: EnvResolverService,
+    },
+    loadChildren: () => import('./main/main.module').then(m => m.MainModule),
+    canActivate: [AuthGuard],
   },
   {
     path: '',
